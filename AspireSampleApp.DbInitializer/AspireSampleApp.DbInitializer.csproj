@@ -1,0 +1,19 @@
+<Project Sdk="Microsoft.NET.Sdk.Worker">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <UserSecretsId>dotnet-AspireSampleApp.DbInitializer-f79a0f42-c972-47a1-a4fa-68ea89f3287d</UserSecretsId>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="8.0.6" />
+    <PackageReference Include="Microsoft.Extensions.Hosting" Version="8.0.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\AspireSampleApp.ServiceDefaults\AspireSampleApp.ServiceDefaults.csproj" />
+    <ProjectReference Include="..\AspireSampleApp\AspireSampleApp.csproj" />
+  </ItemGroup>
+</Project>

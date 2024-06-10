@@ -1,0 +1,12 @@
+@AspireSampleApp_HostAddress = http://localhost:5190
+
+GET {{AspireSampleApp_HostAddress}}/tweets/
+Accept: application/json
+
+###
+POST {{AspireSampleApp_HostAddress}}/tweets/
+Content-Type: application/json
+
+{
+  "text": "The first tweet!!"
+}

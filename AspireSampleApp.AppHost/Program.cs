@@ -1,9 +1,24 @@
 var builder = DistributedApplication.CreateBuilder(args);
 
 // Redis と SQL Server を追加
-var redis = builder.AddRedis("redis");
-var sqlServer = builder.AddSqlServer("sqlserver");
-var sampleDb = sqlServer.AddDatabase("sampleDb");
+IResourceBuilder<IResourceWithConnectionString> createDatabase()
+{
+    // ローカル実行時には SQL Server のコンテナを使って発行時には接続文字列を使う
+    if (builder.ExecutionContext.IsRunMode)
+    {
+        var sqlServer = builder.AddSqlServer("sqlserver");
+        return sqlServer.AddDatabase("sampleDb");
+    }
+    else
+    {
+        return builder.AddConnectionString("sampleDb");
+    }
+}
+
+var redis = builder.ExecutionContext.IsRunMode ? 
+    builder.AddRedis("redis") :
+    builder.AddConnectionString("redis");
+var sampleDb = createDatabase();
 
 // Web アプリに Redis と SQL Server を参照として追加
 builder.AddProject<Projects.AspireSampleApp>("aspiresampleapp")
@@ -20,3 +35,4 @@ if (builder.ExecutionContext.IsRunMode)
 }
 
 builder.Build().Run();
+
